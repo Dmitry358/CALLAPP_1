@@ -5,11 +5,10 @@ WORKDIR /app
 
 COPY pom.xml .
 COPY src ./src
+COPY www ./www
 
 RUN mvn clean package -DskipTests
 
-
-# ===== RUNTIME =====
 FROM eclipse-temurin:21-jre
 
 WORKDIR /app

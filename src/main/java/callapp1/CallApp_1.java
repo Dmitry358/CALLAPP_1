@@ -15,6 +15,7 @@ public class CallApp_1 {
 
         ServerSocket serverSocket = new ServerSocket(port);
         System.out.println("Server avviato sulla porta " + port);
+        System.out.println("WWW_ROOT == " + WWW_ROOT);
 
         while (true) {
             Socket client = serverSocket.accept();
