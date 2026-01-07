@@ -7,9 +7,7 @@ import java.net.Socket;
 public class CallApp_1 {
 
     public static void main(String[] args) throws IOException {
-        int port = Integer.parseInt(
-          System.getenv().getOrDefault("PORT", "8080")
-        );
+        int port = Integer.parseInt(System.getenv().getOrDefault("PORT", "8080"));
 
         ServerSocket serverSocket = new ServerSocket(port);
         System.out.println("Server avviato sulla porta " + port);
@@ -22,11 +20,10 @@ public class CallApp_1 {
 
     private static void handleClient(Socket client) {
         try (
-          BufferedReader in = new BufferedReader(
-            new InputStreamReader(client.getInputStream()));
-          BufferedWriter out = new BufferedWriter(
-            new OutputStreamWriter(client.getOutputStream()))
-        ) {
+          BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+          BufferedWriter out = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()))
+        )
+        {
             String requestLine = in.readLine();
             if (requestLine == null) return;
 
@@ -35,7 +32,7 @@ public class CallApp_1 {
             // Consuma header
             String line;
             while ((line = in.readLine()) != null && !line.isEmpty()) {
-                System.out.println(line);
+                //System.out.println(line);
             }
 
             String method = requestLine.split(" ")[0];

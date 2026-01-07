@@ -12,8 +12,8 @@
 
 <script>
     function callServer() {
-      fetch("https://callapp-1-znj8.onrender.com/")
       //fetch("https://localhost:8080")
+      fetch("https://callapp-1-znj8.onrender.com/")      
         .then(r => r.json())
         .then(data => {
           document.getElementById("output").textContent =
