@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Mini App Java</title>
+</head>
+<body>
+<h1>Test server Java</h1>
+<button onclick="callServer()">Chiama server</button>
+
+<pre id="output"></pre>
+
+<script>
+    function callServer() {
+      fetch("https://TUO-SERVIZIO.onrender.com")
+        .then(r => r.json())
+        .then(data => {
+          document.getElementById("output").textContent =
+            JSON.stringify(data, null, 2);
+        })
+        .catch(err => console.error(err));
+    }
+</script>
+</body>
+</html>
