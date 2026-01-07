@@ -8,7 +8,7 @@ import java.nio.file.Path;
 
 public class CallApp_1 {
 
-    private static final String WWW_ROOT = "/www";
+    private static final String WWW_ROOT = "www";
 
     public static void main(String[] args) throws IOException {
         int port = Integer.parseInt(System.getenv().getOrDefault("PORT", "8080"));
