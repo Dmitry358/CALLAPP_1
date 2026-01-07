@@ -4,18 +4,85 @@
 <meta charset="UTF-8">
 <title>Mini Chat</title>
 <style>
-body { font-family: Arial; text-align: center; }
-#chat { width: 60%; margin: 20px auto; border: 1px solid #ccc; padding: 10px; text-align: left; min-height: 200px; }
-input { width: 60%; padding: 10px; }
-button { padding: 10px 20px; margin-top: 10px; }
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background: #f7f7f7;
+}
+
+h1 {
+    margin-top: 20px;
+}
+
+#chat {
+    width: 90%;
+    max-width: 600px;
+    margin: 20px auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    min-height: 200px;
+    background: white;
+    overflow-y: auto;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    text-align: left;
+}
+
+#inputContainer {
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    max-width: 600px;
+    margin: 0 auto 20px auto;
+    gap: 10px;
+}
+
+input {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 500px) {
+    #chat {
+        width: 95%;
+        font-size: 14px;
+    }
+
+    input, button {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
 </style>
 </head>
 <body>
 <h1>Mini Chat Socket</h1>
 
 <div id="chat"></div>
-<input id="textInput" placeholder="Scrivi..." />
-<button onclick="send()">Invia</button>
+
+<div id="inputContainer">
+    <input id="textInput" placeholder="Scrivi..." />
+    <button onclick="send()">Invia</button>
+</div>
 
 <script>
 function send() {
@@ -40,6 +107,7 @@ setInterval(() => {
                 p.textContent = line;
                 chat.appendChild(p);
             });
+            chat.scrollTop = chat.scrollHeight; // scroll automatico in basso
         });
 }, 1000);
 </script>
