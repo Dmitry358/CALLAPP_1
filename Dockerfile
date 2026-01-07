@@ -1,19 +1,19 @@
+# ===== BUILD =====
 FROM maven:3.9-eclipse-temurin-21 AS build
 
 WORKDIR /app
-
 COPY pom.xml .
 COPY src ./src
-COPY www ./www
-
 RUN mvn clean package -DskipTests
 
+# ===== RUNTIME =====
 FROM eclipse-temurin:21-jre
 
 WORKDIR /app
-
 COPY --from=build /app/target/callapp1-server-0.0.1-SNAPSHOT.jar app.jar
 
-EXPOSE 8080
+# Copia la cartella www direttamente dalla build context (dal tuo PC)
+COPY www ./www
 
+EXPOSE 8080
 CMD ["java", "-jar", "app.jar"]
