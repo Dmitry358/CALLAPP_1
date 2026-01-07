@@ -1,47 +1,47 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <title>CallApp-1</title>
-        <style>
-        body {
-            text-align: center; /* centra tutto orizzontalmente */
-            font-family: Arial, sans-serif;
-        }
-
-        button {
-            background-color: red;
-            color: white;
-            padding: 15px 30px;
-            font-size: 18px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-
-        button:hover {
-            background-color: darkred;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Mini Chat</title>
+<style>
+body { font-family: Arial; text-align: center; }
+#chat { width: 60%; margin: 20px auto; border: 1px solid #ccc; padding: 10px; text-align: left; min-height: 200px; }
+input { width: 60%; padding: 10px; }
+button { padding: 10px 20px; margin-top: 10px; }
+</style>
 </head>
 <body>
-<h1>Test server Java</h1>
-<button onclick="callServer()">Chiama server!!!!</button>
+<h1>Mini Chat Socket</h1>
 
-<pre id="output"></pre>
+<div id="chat"></div>
+<input id="textInput" placeholder="Scrivi..." />
+<button onclick="send()">Invia</button>
 
 <script>
-    function callServer() {
-      //fetch("https://localhost:8080")
-      fetch("https://callapp-1-znj8.onrender.com/")      
-        .then(r => r.json())
+function send() {
+    const input = document.getElementById("textInput");
+    const msg = input.value.trim();
+    if (!msg) return;
+
+    fetch("/send?msg=" + encodeURIComponent(msg))
+        .then(r => r.text())
+        .then(() => { input.value = ""; });
+}
+
+// Aggiorna chat ogni secondo
+setInterval(() => {
+    fetch("/messages")
+        .then(r => r.text())
         .then(data => {
-          document.getElementById("output").textContent =
-            JSON.stringify(data, null, 2);
-        })
-        .catch(err => console.error(err));
-    }
+            const chat = document.getElementById("chat");
+            chat.innerHTML = "";
+            data.split("\n").filter(line => line).forEach(line => {
+                const p = document.createElement("p");
+                p.textContent = line;
+                chat.appendChild(p);
+            });
+        });
+}, 1000);
 </script>
 </body>
 </html>
