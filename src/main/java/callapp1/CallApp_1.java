@@ -32,7 +32,7 @@ public class CallApp_1 {
             String requestLine = in.readLine();
             if (requestLine == null) return;
 
-            System.out.println(requestLine);
+            System.out.println("requestLine == " + requestLine);
 
             // Consuma header
             String line;
@@ -40,7 +40,9 @@ public class CallApp_1 {
 
             String[] parts = requestLine.split(" ");
             String method = parts[0];
+            System.out.println("method == " + method);
             String path = parts[1];
+            System.out.println("path == " + path);
 
             if (!method.equals("GET")) {
                 send405(out);
@@ -51,7 +53,9 @@ public class CallApp_1 {
                 path = "/index.html";
             }
 
-            Path filePath = Path.of(WWW_ROOT + path);
+            //Path filePath = Path.of(WWW_ROOT + path);
+            Path filePath = Path.of(WWW_ROOT, path.substring(1));
+            System.out.println("filePath == " + filePath);
 
             if (!Files.exists(filePath)) {
                 send404(out);
@@ -72,7 +76,6 @@ public class CallApp_1 {
             out.write(("\r\n").getBytes());
             out.write(content);
             out.flush();
-
         }
         catch (IOException e) {
             e.printStackTrace();
