@@ -31,11 +31,11 @@ public class CallApp_1 {
             new InputStreamReader(client.getInputStream()));
           BufferedWriter out = new BufferedWriter(
             new OutputStreamWriter(client.getOutputStream()))
-        )
-        {
+        ) {
             String line;
-            while (!(line = in.readLine()).isEmpty()) {
-                System.out.println(line); // stampa request
+
+            while ((line = in.readLine()) != null && !line.isEmpty()) {
+                System.out.println(line);
             }
 
             String body = "{\"message\":\"Ciao dal server Java 21 🚀\"}";
@@ -43,14 +43,14 @@ public class CallApp_1 {
             out.write("HTTP/1.1 200 OK\r\n");
             out.write("Content-Type: application/json\r\n");
             out.write("Content-Length: " + body.length() + "\r\n");
+            out.write("Connection: close\r\n");
             out.write("\r\n");
             out.write(body);
             out.flush();
 
-            client.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }
